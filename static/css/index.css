@@ -1,0 +1,385 @@
+body {
+  font-family: 'Noto Sans', sans-serif;
+}
+
+
+footer.footer {
+  padding: 5px 0; /* Adjusts the vertical padding to make the footer smaller */
+}
+
+footer .container p {
+  font-size: 0.8rem; /* Makes the text smaller */
+}
+
+.footer .icon-link {
+    font-size: 25px;
+    color: #000;
+}
+
+.link-block a {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.dnerf {
+  font-variant: small-caps;
+}
+
+
+.teaser .hero-body {
+  padding-top: 0;
+  padding-bottom: 3rem;
+}
+
+.teaser {
+  font-family: 'Google Sans', sans-serif;
+}
+
+
+.publication-title {
+}
+
+.publication-banner {
+  max-height: parent;
+
+}
+
+.publication-banner video {
+  position: relative;
+  left: auto;
+  top: auto;
+  transform: none;
+  object-fit: fit;
+}
+
+.publication-header .hero-body {
+}
+
+.publication-title {
+    font-family: 'Google Sans', sans-serif;
+}
+
+.publication-authors {
+    font-family: 'Google Sans', sans-serif;
+}
+
+.publication-venue {
+    color: #555;
+    width: fit-content;
+    font-weight: bold;
+}
+
+.publication-awards {
+    color: #ff3860;
+    width: fit-content;
+    font-weight: bolder;
+}
+
+.publication-authors {
+}
+
+.publication-authors a {
+   color: hsl(204, 86%, 53%) !important;
+}
+
+.publication-authors a:hover {
+    text-decoration: underline;
+}
+
+.author-block {
+  display: inline-block;
+}
+
+.publication-banner img {
+}
+
+.publication-authors {
+  /*color: #4286f4;*/
+}
+
+.publication-video {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+
+    overflow: hidden;
+    border-radius: 10px !important;
+}
+
+.publication-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.publication-body img {
+}
+
+.results-carousel {
+  overflow: hidden;
+}
+
+.results-carousel .item {
+  margin: 5px;
+  overflow: hidden;
+  border: 1px solid #bbb;
+  border-radius: 10px;
+  padding: 0;
+  font-size: 0;
+}
+
+.results-carousel video {
+  margin: 0;
+}
+
+
+.interpolation-panel {
+  background: #f5f5f5;
+  border-radius: 10px;
+}
+
+.interpolation-panel .interpolation-image {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.interpolation-video-column {
+}
+
+.interpolation-panel .slider {
+  margin: 0 !important;
+}
+
+.interpolation-panel .slider {
+  margin: 0 !important;
+}
+
+#interpolation-image-wrapper {
+  width: 100%;
+}
+#interpolation-image-wrapper img {
+  border-radius: 5px;
+}
+
+
+.image-container figure {
+  text-align: center; /* Center the caption below the image */
+  width: 100%; /* Make the images responsive and take up 80% of the page width */
+}
+
+.image-container img {
+  width: 100%; /* Image fills the figure's width */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 10px; /* Remove rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: remove shadows */
+}
+
+.image-container figcaption {
+  margin-top: 8px; /* Space between the image and caption */
+  font-size: 14px; /* Adjust font size */
+  color: #555; /* Subtle color for the caption */
+}
+
+.center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+
+.table-container {
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+th, td {
+  width: 16.6%;
+  border: none;
+  padding: 0;
+}
+
+.is-max-desktop {
+  max-width: 1300px; /* Increase this value to make the content wider */
+  margin: 0 auto;
+}
+
+.image-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.image-row figure {
+  margin: 0;
+  flex-grow: 1;
+}
+
+.image-two-thirds {
+  flex: 2;
+}
+
+.image-one-third {
+  flex: 1;
+}
+
+/* Set height individually without cropping */
+.image-1 {
+  height: 300px; /* First image's height */
+  width: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.image-2 {
+  height: 270px; /* Second image's height */
+  width: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.image-row figcaption {
+  text-align: center;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+/* ---- Quantitative result tables (SPLiDER, OE 2026) ---- */
+.metrics-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  margin-bottom: 0.75rem;
+}
+.metrics-table th,
+.metrics-table td {
+  width: auto;
+  padding: 0.35em 0.55em;
+  border: none;
+  text-align: center;
+  white-space: nowrap;
+}
+.metrics-table thead th {
+  border-bottom: 1px solid #363636;
+  font-weight: 600;
+}
+.metrics-table thead tr:first-child th {
+  border-bottom: 1px solid #b5b5b5;
+}
+.metrics-table tbody td:first-child,
+.metrics-table thead th:first-child {
+  text-align: left;
+}
+.metrics-table tbody tr.group-row td {
+  background: #f5f5f5;
+  font-style: italic;
+  text-align: left;
+  font-size: 0.78rem;
+}
+.metrics-table tbody tr.ours-row td {
+  background: #fdf6e6;
+  font-weight: 700;
+  border-top: 1px solid #363636;
+}
+.metrics-table tbody tr:last-child td {
+  border-bottom: 1px solid #363636;
+}
+.metrics-table .venue {
+  font-size: 0.7rem;
+  color: #7a7a7a;
+}
+
+.fig-block {
+  margin: 1.5rem 0;
+}
+.fig-block img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.fig-block figcaption {
+  text-align: justify;
+  font-size: 0.85rem;
+  color: #4a4a4a;
+  margin-top: 0.6rem;
+}
+.fig-pair {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+.fig-pair figure {
+  flex: 1 1 320px;
+  margin: 0;
+}
+.takeaway {
+  border-left: 4px solid #B9770E;
+  background: #fdf6e6;
+  padding: 0.85rem 1.1rem;
+  margin: 1.25rem 0;
+  font-size: 0.95rem;
+}
+
+/* ---- Highlighted equation boxes (SPARC) ---- */
+.eq-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1.5rem 0 1.75rem;
+}
+.eq-box {
+  flex: 1 1 280px;
+  border: 1px solid #B9770E;
+  border-radius: 6px;
+  background: #fdf6e6;
+  padding: 0.9rem 1.1rem;
+  text-align: center;
+}
+.eq-box .eq-label {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #B9770E;
+  margin-bottom: 0.5rem;
+}
+.eq-box .eq-body {
+  display: block;
+  font-size: 1.05rem;
+}
+
+/* --- camera-ready update --- */
+.publication-venue-line {
+  font-family: 'Google Sans', sans-serif;
+  color: #B9770E;
+  font-weight: 600;
+  margin-top: 0.75rem;
+}
+
+.button.is-coming-soon {
+  opacity: 0.55;
+  cursor: default;
+  pointer-events: none;
+}
+
+.table-caption {
+  font-size: 0.85rem;
+  color: #4a4a4a;
+}
+
+/* keep equations and BibTeX from widening the page on phones */
+.eq-box { max-width: 100%; overflow-x: auto; }
+#BibTeX pre { overflow-x: auto; }
+@media (max-width: 600px) {
+  .eq-row { flex-direction: column; }
+  .columns { margin-left: 0; margin-right: 0; }
+}

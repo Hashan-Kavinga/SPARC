@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="SPARC (WACV 2027): an acquisition-aware compression framework for single-photon LiDAR that decides where photons are measured and how the retained waveforms are represented.">
+  <meta name="keywords" content="Single-photon LiDAR, data compression, sparse representation, RGB-guided adaptive sampling, depth and reflectivity reconstruction, edge computing, WACV 2027">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SPARC: Scene-Guided Photon Acquisition and Sparse Representation for SP-LiDAR Compression</title>
+
+
+  <script id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">
+            <span style="color:#B9770E; font-weight: bold; font-style: italic">SPARC</span>
+             <br>
+                Scene-Guided Photon Acquisition and Sparse Representation for SP-LiDAR Compression
+                 </h1>
+          <div class="is-size-5 publication-authors">
+            <div class="author-row">
+              <span class="author-block">
+                <a href="https://hashan-kavinga.github.io/index.html">Hashan K. Weerasooriya</a>,</span>
+              <span class="author-block">
+                <a href="https://wjzhang5464.github.io/">Weijian Zhang</a>,</span>
+              <span class="author-block">
+                <a href="https://engineering.purdue.edu/ChanGroup/stanleychan.html">Stanley H. Chan</a></span>
+            </div>
+          </div>
+
+          <div class="is-size-6 publication-authors" style="margin-top: 0.5rem;">
+            <span class="author-block">School of Electrical and Computer Engineering, Purdue University, West Lafayette, IN, USA</span>
+          </div>
+
+          <div class="is-size-5 publication-venue-line">
+            IEEE/CVF Winter Conference on Applications of Computer Vision (WACV) 2027 &middot; Applications Track
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- Replace each "coming soon" button with a real link (href) when available. -->
+              <span class="link-block">
+                <a class="external-link button is-normal is-rounded is-dark is-coming-soon" aria-disabled="true" title="Coming soon">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper (coming soon)</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a class="external-link button is-normal is-rounded is-dark is-coming-soon" aria-disabled="true" title="Coming soon">
+                  <span class="icon">
+                      <i class="fas fa-file-alt"></i>
+                  </span>
+                  <span>Supplement (coming soon)</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a class="external-link button is-normal is-rounded is-dark is-coming-soon" aria-disabled="true" title="Coming soon">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code (coming soon)</span>
+                </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section>
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <br>
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Single-Photon LiDAR (SP-LiDAR) provides exceptional depth sensitivity but produces massive spatio-temporal data
+            volumes that hinder real-time deployment. Existing methods primarily reduce data volume <i>after</i> spatially dense
+            photon acquisition, relying on rigid sensing strategies or scene-agnostic temporal coding that cannot reduce the
+            sensing burden itself. We propose SPARC (Scene-guided Photon Acquisition and Sparse Representation for SP-LiDAR
+            Compression), an acquisition-aware compression framework that moves compression decisions ahead of acquisition,
+            choosing <i>where</i> photon measurements are captured and <i>how</i> retained waveforms are represented. SPARC uses
+            low-cost RGB scene priors to guide adaptive photon acquisition, then encodes the retained measurements using a
+            learned sparsifying transform into compact coefficient&ndash;index pairs. A lightweight reconstruction network,
+            sparseSPADnet, directly recovers dense depth and reflectivity from the sparse representation without reconstructing
+            a dense histogram cube. Experiments on simulated driving scenes, real SP-LiDAR measurements, and embedded deployment
+            on an NVIDIA Jetson AGX Xavier demonstrate that SPARC consistently outperforms conventional fixed-basis temporal
+            coding across diverse photon-flux conditions while maintaining a compact computational footprint. These results
+            demonstrate the potential of acquisition-aware compression for scalable, resource-efficient SP-LiDAR sensing.
+          </p>
+        </div>
+
+        <figure class="fig-block">
+          <img src="./static/images/fig1_overview.png" alt="SPARC framework versus conventional SP-LiDAR compression pipelines">
+          <figcaption>
+            <b>Figure 1.</b> Overview of the SPARC framework versus conventional SP-LiDAR compression pipelines. Conventional
+            methods suffer from a cold-start problem or rely on non-adaptive filtering of dense histogram cubes. In contrast,
+            SPARC utilizes an RGB-guided spatial importance map for adaptive photon registration. The resulting sparse data
+            undergoes temporal sparsification using transform learning (\(\mathbf{W}\)) and thresholding (\(\mathcal{T}_s\)) to
+            isolate the underlying temporal structure. Retained atom values (\(V\)) and indices (\(A\)) are processed by
+            sparseSPADnet, a lightweight joint reconstruction network, to simultaneously recover depth and reflectivity.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Why Compression Happens Too Late</h2>
+        <div class="content has-text-justified">
+          <p>
+            In SP-LiDAR each pixel accumulates photon arrivals across thousands of laser pulses, producing a 3D histogram cube
+            \(\mathcal{H} \in \mathbb{R}^{W \times H \times N_{\text{bins}}}\) that scales with both spatial resolution and
+            temporal bin count. Even at 8 bits per bin, a \(128 \times 256 \times 1024\) cube is about <b>33.5&nbsp;MB per frame</b>.
+          </p>
+          <p>
+            Existing work largely compresses those histograms <i>after</i> acquisition. Hardware approaches reduce transmission
+            through compact histogramming or adaptive scanning, but rely on rigid sensing strategies or costly sequential scene
+            exploration that introduces a cold-start overhead. Algorithmic methods apply sketching, compressive coding, or learned
+            representations to already-acquired histograms &mdash; they assume dense, scene-agnostic acquisition and therefore
+            cannot reduce the sensing burden itself.
+          </p>
+
+          <div class="takeaway">
+            <b>The disconnect.</b> Existing methods optimize <i>how</i> dense measurements are represented while treating
+            <i>where</i> measurements are acquired as fixed. An SP-LiDAR system should decide both. A low-cost
+            co-located RGB camera provides the scene information that makes acquisition-aware sensing practical.
+          </div>
+
+          <h4 class="title is-5">Contributions</h4>
+          <ol>
+            <li>
+              <b><i>Acquisition-aware SP-LiDAR compression.</i></b>
+              <br>RGB-guided adaptive photon acquisition allocates the photon budget <i>before</i> histogram formation,
+              reducing both the sensing burden and the amount of data that must be represented and transmitted.
+            </li>
+            <li>
+              <b><i>Decoder-independent learned sparse representation.</i></b>
+              <br>A learned temporal sparsifying transform represents retained waveforms with compact coefficient&ndash;index
+              pairs. It is learned independently of the reconstruction network and held fixed at deployment, so the payload can
+              be decoded by different estimators without retraining the compression stage. The transform stays compact across
+              low-flux, pile-up and dead-time conditions.
+            </li>
+            <li>
+              <b><i>Lightweight joint reconstruction and system validation.</i></b>
+              <br>sparseSPADnet reconstructs dense depth and reflectivity directly from the sparse representation, without
+              materializing the histogram cube. The framework is validated on simulated and real photon measurements and runs
+              on an NVIDIA Jetson AGX Xavier.
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Method. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Method</h2>
+        <article class="content has-text-justified">
+          <p>
+            SPARC runs in three stages: RGB-guided spatial acquisition, temporal compression with a pre-learned sparsifying
+            transform, and neural reconstruction. Spatial and temporal compression are applied sequentially to the histogram cube
+            \(\mathcal{H}\), and the resulting sparse payload \(\mathcal{P}\) is decoded straight into the scene estimate
+            \(\hat{\mathcal{S}}\) &mdash; a pair of joint depth and reflectivity maps.
+          </p>
+
+          <div class="eq-row">
+            <div class="eq-box">
+              <span class="eq-label">Compression</span>
+              <span class="eq-body">\(\mathcal{P} = \text{Compress}_{\text{temp}}\big(\text{Compress}_{\text{spatial}}(\mathcal{H})\big)\)</span>
+            </div>
+            <div class="eq-box">
+              <span class="eq-label">Decoding</span>
+              <span class="eq-body">\(\hat{\mathcal{S}} = \text{Decode}(\mathcal{P})\)</span>
+            </div>
+          </div>
+
+          <h4 class="title is-5">Spatial Compression via RGB-Guided Sampling</h4>
+          <p>
+            Neighboring pixels have highly correlated temporal responses, so spreading a fixed photon budget uniformly is wasteful.
+            SPARC uses an RGB image captured <i>before</i> acquisition to estimate a spatial importance \(I(u,v) \ge 0\), sampling
+            pixel \((u,v)\) with probability \(p(u,v) = I(u,v) / \sum_{u,v} I(u,v)\). Only sampled locations are measured, so the
+            dense cube is never formed &mdash; compression happens at the sensing stage. Two strategies are supported:
+            <b>texture-aware</b> sampling, \(I_{\text{tex}} = \alpha_g G + \alpha_v V\) from gradient magnitude and local intensity
+            variance, which preserves object boundaries and fine structure; and <b>object-aware</b> sampling, which reserves part of
+            the budget for detector bounding boxes and is used in the embedded evaluation.
+          </p>
+
+          <figure class="fig-block">
+            <img src="./static/images/fig_sampling_strategies.jpg" alt="Spatial sampling strategies at a 10% budget: RGB input, sampling masks and depth reconstructions">
+            <figcaption>
+              <b>Figure 2.</b> Spatial sampling strategies at a 10% sampling budget. Top: RGB input and corresponding sampling
+              masks. Bottom: depth reconstructions at 250 photons per pixel and signal-to-background ratio SBR = 0.04, obtained by
+              training the reconstruction method of Peng <i>et al.</i> separately for each sampling pattern.
+            </figcaption>
+          </figure>
+
+          <h4 class="title is-5">Temporal Compression via a Learned Sparsifying Transform</h4>
+          <p>
+            SPARC treats temporal compression as an explicit sparse-representation problem rather than an end-to-end latent code. A
+            square analysis transform \(\mathbf{W}\) maps each histogram \(\mathbf{y}\) to \(\mathbf{x} = \mathbf{W}\mathbf{y}\),
+            keeping only the \(s \ll N_{\text{bins}}\) largest coefficients via hard thresholding \(\mathcal{T}_s\). Transform and
+            codes are learned jointly by solving
+            \(\min_{\mathbf{W},\mathbf{X}} \|\mathbf{W}\mathbf{Y} - \mathbf{X}\|_F^2 + \lambda_1 \Phi(\mathbf{W})\) subject to
+            \(\|\mathbf{x}_i\|_0 \le s\) for every histogram, with
+            \(\Phi(\mathbf{W}) = \|\mathbf{W}\|_F^2 - \gamma \log\det(\mathbf{W})\) keeping \(\mathbf{W}\) full-rank. Unlike Fourier
+            or wavelet bases, the learned atoms adapt to detector-specific distortions &mdash; pile-up, dead-time, low-flux &mdash;
+            so \(s = 4\) coefficient&ndash;index pairs suffice where fixed bases fail. Atom pruning gives a
+            <b>10&times; reduction in dimensionality</b>, and because the transform is learned offline and then held fixed, the
+            payload stays independent of the reconstruction network.
+          </p>
+
+          <figure class="fig-block">
+            <img src="./static/images/fig_transform_comparison.jpg" alt="Histogram reconstructions with Fourier, Hadamard, Mexican-hat and the learned transform at s = 4">
+            <figcaption>
+              <b>Figure 3.</b> Sparse representation of SP-LiDAR histograms across operating conditions. Top: noisy detections,
+              ground truth, and reconstructions using Fourier, Hadamard, Mexican-hat wavelet, and the proposed learned transform.
+              Bottom: proposed transform coefficients retaining only \(s = 4\). The learned transform reconstructs histograms with
+              minimal active atoms.
+            </figcaption>
+          </figure>
+
+          <figure class="fig-block">
+            <img src="./static/images/fig_atom_decomposition.png" alt="Sparse atom decomposition of SP-LiDAR histograms across four distortion regimes">
+            <figcaption>
+              <b>Figure 4.</b> Sparse atom decomposition of SP-LiDAR histograms across two scene configurations. Row (a) of each
+              panel shows the Monte-Carlo simulated photon-count histogram (gray stems), the analytic ground-truth PDF (orange),
+              and the learned sparse reconstruction (navy dashed) for four distortion regimes: low-flux, dead-time \(T_d\),
+              dead-time \(T_d + T_e\), and pile-up (left to right). Rows (b1)&ndash;(b4) display the four dictionary atoms
+              \(\mathbf{w}_k\) activated during sparse encoding (\(s = 4\)), each normalized to its own dynamic range to reveal
+              waveform structure; the badge in each panel reports the atom index \(k\) and its sparse coefficient
+              \(\alpha_k\). Top panel &mdash; Case A: \(z = 20\)&nbsp;ns, \(\alpha = 0.75\), \(\eta = 2.5\). Bottom panel &mdash;
+              Case B: \(z = 27.5\)&nbsp;ns, \(\alpha = 2.75\), \(\eta = 5.5\).
+            </figcaption>
+          </figure>
+
+          <div class="takeaway">
+            <b>The atoms are not matched filters.</b> Rather than correlating against one fixed template to localize a peak, the
+            transform projects each histogram onto a small set of regime-adaptive atoms that jointly encode signal, background,
+            <i>and</i> detector distortion. Only \(s = 4\) atoms are active in every regime above, and pruning leaves as few as 79
+            of \(N_{\text{bins}} = 1024\).
+          </div>
+
+          <h4 class="title is-5">Reconstruction: sparseSPADnet</h4>
+          <p>
+            sparseSPADnet decodes the payload directly from the atom-index tensor \(\mathbf{A}\) and coefficient tensor
+            \(\mathbf{V}\), zero-padded at unsampled locations; trained independently of the transform, it can be replaced without
+            relearning the compression stage. Indices and coefficients carry complementary information, so each is embedded and
+            summed into a token \(\mathbf{T}_i = E_{\text{atom}}(\mathbf{A}_i) + E_{\text{val}}(\mathbf{V}_i)\). Because the retained
+            atoms are unordered, attention-based pooling learns their relative importance and aggregates them into one dense feature.
+            A parallel intensity-proxy branch adds the local intensity cues the atoms lack; the fused features pass through a
+            lightweight U-Net and two task-specific heads for joint depth and reflectivity.
+          </p>
+
+          <figure class="fig-block">
+            <img src="./static/images/fig4_sparsespadnet.png" alt="Overview of sparseSPADnet">
+            <figcaption>
+              <b>Figure 5.</b> Overview of sparseSPADnet. Retained atom indices and coefficients undergo attention-based pooling to
+              form a temporal representation; a parallel intensity-proxy branch extracts spatial cues. Fused features pass through a
+              lightweight U-Net and decoupled task-specific decoders with residual blocks and window-partitioned self-attention for
+              joint depth and reflectivity reconstruction.
+            </figcaption>
+          </figure>
+        </article>
+      </div>
+    </div>
+    <!--/ Method. -->
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Embedded Deployment</h2>
+        <div class="content has-text-justified">
+          <p>
+            The complete acquisition&ndash;compression&ndash;reconstruction pipeline is deployed on an NVIDIA Jetson AGX Xavier
+            (32 TOPS, 30&nbsp;W). Here the objective is embedded autonomous sensing rather than scene-wide fidelity, so SPARC runs in
+            <b>object-aware</b> mode: a TensorRT-optimized YOLOv11-nano detector identifies object regions and a constant-velocity
+            Kalman filter predicts locations between frames, generating stable acquisition masks <i>before</i> photon sensing begins.
+            This predictive strategy concentrates the photon budget on dynamically relevant regions while reducing spatial jitter
+            from per-frame detection variability.
+          </p>
+          <p>
+            Because SPARC generates the sparse payload directly from adaptive spatial acquisition combined with learned temporal
+            encoding, a spatially dense histogram cube is never materialized &mdash; for a \(128 \times 256 \times 1024\) cube this
+            avoids transferring about 33.5&nbsp;MB per frame even at 8 bits per bin. Sparse encoding is a single matrix multiplication followed by
+            top-\(s\) thresholding, after which the payload is passed straight to a TensorRT FP32 implementation of sparseSPADnet;
+            one forward pass yields dense depth and reflectivity with no post-processing.
+          </p>
+
+          <div class="takeaway">
+            <b>System performance.</b> Core compute latency is approximately <b>265&nbsp;ms</b> &mdash; 125&nbsp;ms for
+            sparseSPADnet inference, 100&nbsp;ms for sparse encoding, and 40&nbsp;ms for object detection and Kalman filtering. The
+            deployment consumes an average GPU power of <b>3.5&nbsp;W</b> (16.0&nbsp;W total board) with a peak unified memory usage
+            of <b>7.5&nbsp;GB</b>. A further &asymp;235&nbsp;ms of disk I/O in the offline evaluation disappears in a live system,
+            where photon acquisition and data transfer overlap with computation from the previous frame.
+          </div>
+
+          <figure class="fig-block">
+            <img src="./static/images/fig7_pipeline.png" alt="Representative pipeline outputs on two driving scenes">
+            <figcaption>
+              <b>Figure 6.</b> Representative pipeline outputs on two EventScape driving scenes. Green boxes denote Kalman-smoothed
+              YOLO detections used to guide adaptive photon allocation.
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@inproceedings{sparc2027,
+  title     = {SPARC: Scene-Guided Photon Acquisition and Sparse Representation
+               for SP-LiDAR Compression},
+  author    = {Weerasooriya, Hashan K. and Zhang, Weijian and Chan, Stanley H.},
+  booktitle = {IEEE/CVF Winter Conference on Applications of Computer Vision (WACV)},
+  year      = {2027}
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer has-background-grey-light">
+  <div class="container">
+    <p class="is-size-7">
+      Built with <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> and
+      <a href="https://pku-yuangroup.github.io/MagicTime/">MagicTime</a> templates
+    </p>
+  </div>
+</footer>
+
+
+</body>
+</html>
